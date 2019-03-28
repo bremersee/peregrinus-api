@@ -1,3 +1,3 @@
-# peregrinus-api
+# Peregrinus API
 
-Parent module with Swagger definitions.
+API and model of peregrinus project.

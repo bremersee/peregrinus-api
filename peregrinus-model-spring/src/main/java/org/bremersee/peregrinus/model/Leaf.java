@@ -14,27 +14,37 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
-import lombok.Builder;
+import java.time.OffsetDateTime;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.bremersee.common.model.AccessControlList;
 
 /**
  * @author Christian Bremer
  */
 @Getter
 @Setter
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @NoArgsConstructor
-public class WptSettings extends PtSettings {
+public abstract class Leaf<S extends LeafSettings> extends Node<S> {
 
-  @Builder
-  public WptSettings(String id, String featureId, String userId) {
-    super(id, featureId, userId);
+  public Leaf(
+      String id,
+      OffsetDateTime created,
+      String createdBy,
+      OffsetDateTime modified,
+      String modifiedBy,
+      AccessControlList acl,
+      S settings,
+      String parentId,
+      String name) {
+    super(id, created, createdBy, modified, modifiedBy, acl, settings, parentId, name);
   }
+
 }

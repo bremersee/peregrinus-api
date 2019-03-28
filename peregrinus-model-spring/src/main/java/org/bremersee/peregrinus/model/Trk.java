@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.locationtech.jts.geom.MultiLineString;
 
 /**
  * @author Christian Bremer
@@ -29,28 +30,15 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class TrkSettings extends FeatureSettings {
+public class Trk extends Feature<MultiLineString, TrkProperties> {
 
-  private DisplayColor displayColor;
-
-  public TrkSettings() {
-    displayColor = DisplayColor.DARK_GRAY;
+  public Trk() {
+    setProperties(new TrkProperties());
   }
 
   @Builder
-  public TrkSettings(
-      String id,
-      String featureId,
-      String userId,
-      DisplayColor displayColor) {
-
-    super(id, featureId, userId);
-    setDisplayColor(displayColor);
-  }
-
-  public void setDisplayColor(DisplayColor displayColor) {
-    if (displayColor != null) {
-      this.displayColor = displayColor;
-    }
+  public Trk(String id, MultiLineString geometry, double[] bbox,
+      TrkProperties properties) {
+    super(id, geometry, bbox, properties);
   }
 }

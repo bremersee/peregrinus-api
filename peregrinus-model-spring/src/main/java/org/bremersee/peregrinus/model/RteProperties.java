@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -25,9 +25,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.bremersee.common.model.AccessControlList;
-import org.bremersee.common.model.Address;
 import org.bremersee.common.model.Link;
-import org.bremersee.common.model.PhoneNumber;
 
 /**
  * @author Christian Bremer
@@ -36,14 +34,17 @@ import org.bremersee.common.model.PhoneNumber;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class WptProperties extends PtProperties<WptSettings> {
+public class RteProperties extends FeatureProperties<RteSettings> {
 
-  public WptProperties() {
-    setSettings(new WptSettings());
+  private List<RtePt> rtePts;
+
+  public RteProperties() {
+    setSettings(new RteSettings());
+    rtePts = new ArrayList<>();
   }
 
   @Builder
-  public WptProperties(
+  public RteProperties(
       AccessControlList acl,
       OffsetDateTime created,
       OffsetDateTime modified,
@@ -54,15 +55,19 @@ public class WptProperties extends PtProperties<WptSettings> {
       List<Link> links,
       OffsetDateTime startTime,
       OffsetDateTime stopTime,
-      WptSettings settings,
-      String internalType,
-      BigDecimal ele,
-      Address address,
-      List<PhoneNumber> phoneNumbers) {
+      RteSettings settings,
+      List<RtePt> rtePts) {
 
     super(acl, created, modified, name, plainTextDescription, markdownDescription,
-        internalComments, links, startTime, stopTime, settings, internalType, ele, address,
-        phoneNumbers);
+        internalComments, links, startTime, stopTime, settings);
+    setRtePts(rtePts);
   }
 
+  public void setRtePts(List<RtePt> rtePts) {
+    if (rtePts == null) {
+      this.rtePts = new ArrayList<>();
+    } else {
+      this.rtePts = rtePts;
+    }
+  }
 }

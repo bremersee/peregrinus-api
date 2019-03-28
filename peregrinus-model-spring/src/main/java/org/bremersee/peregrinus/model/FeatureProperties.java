@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -30,8 +30,6 @@ import lombok.Setter;
 import lombok.ToString;
 import org.bremersee.common.model.AccessControlList;
 import org.bremersee.common.model.Link;
-import org.bremersee.security.access.AclBuilder;
-import org.bremersee.security.access.PermissionConstants;
 
 /**
  * @author Christian Bremer
@@ -80,7 +78,7 @@ public abstract class FeatureProperties<S extends FeatureSettings> {
     final OffsetDateTime now = OffsetDateTime.now(Clock.systemUTC());
     created = now;
     modified = now;
-    acl = AclBuilder.builder().defaults(PermissionConstants.ALL).buildAccessControlList();
+    acl = new AccessControlList();
     links = new ArrayList<>();
   }
 

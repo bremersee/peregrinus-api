@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,30 +36,14 @@ import org.bremersee.common.model.PhoneNumber;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public abstract class PtProperties<S extends PtSettings> extends FeatureProperties<S> {
+public class WptProperties extends PtProperties<WptSettings> {
 
-  private String internalType; // photo, video or not // TODO
-
-  /**
-   * Elevation in meters
-   */
-  private BigDecimal ele;
-
-  /**
-   * Address
-   */
-  private Address address; // index?
-
-  /**
-   * Phone numbers
-   */
-  private List<PhoneNumber> phoneNumbers;
-
-  public PtProperties() {
-    phoneNumbers = new ArrayList<>();
+  public WptProperties() {
+    setSettings(new WptSettings());
   }
 
-  public PtProperties(
+  @Builder
+  public WptProperties(
       AccessControlList acl,
       OffsetDateTime created,
       OffsetDateTime modified,
@@ -70,25 +54,15 @@ public abstract class PtProperties<S extends PtSettings> extends FeatureProperti
       List<Link> links,
       OffsetDateTime startTime,
       OffsetDateTime stopTime,
-      S settings,
+      WptSettings settings,
       String internalType,
       BigDecimal ele,
       Address address,
       List<PhoneNumber> phoneNumbers) {
 
     super(acl, created, modified, name, plainTextDescription, markdownDescription,
-        internalComments, links, startTime, stopTime, settings);
-    setInternalType(internalType);
-    setEle(ele);
-    setAddress(address);
-    setPhoneNumbers(phoneNumbers);
+        internalComments, links, startTime, stopTime, settings, internalType, ele, address,
+        phoneNumbers);
   }
 
-  public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
-    if (phoneNumbers == null) {
-      this.phoneNumbers = new ArrayList<>();
-    } else {
-      this.phoneNumbers = phoneNumbers;
-    }
-  }
 }

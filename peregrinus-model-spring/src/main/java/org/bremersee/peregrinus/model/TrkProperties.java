@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,17 +35,20 @@ import org.bremersee.common.model.Link;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class RteProperties extends FeatureProperties<RteSettings> {
+public class TrkProperties extends FeatureProperties<TrkSettings> {
 
-  private List<RtePt> rtePts;
+  private List<List<BigDecimal>> eleLines;
 
-  public RteProperties() {
-    setSettings(new RteSettings());
-    rtePts = new ArrayList<>();
+  private List<List<OffsetDateTime>> timeLines;
+
+  public TrkProperties() {
+    eleLines = new ArrayList<>();
+    timeLines = new ArrayList<>();
+    setSettings(new TrkSettings());
   }
 
   @Builder
-  public RteProperties(
+  public TrkProperties(
       AccessControlList acl,
       OffsetDateTime created,
       OffsetDateTime modified,
@@ -55,19 +59,29 @@ public class RteProperties extends FeatureProperties<RteSettings> {
       List<Link> links,
       OffsetDateTime startTime,
       OffsetDateTime stopTime,
-      RteSettings settings,
-      List<RtePt> rtePts) {
+      TrkSettings settings,
+      List<List<BigDecimal>> eleLines,
+      List<List<OffsetDateTime>> timeLines) {
 
     super(acl, created, modified, name, plainTextDescription, markdownDescription,
         internalComments, links, startTime, stopTime, settings);
-    setRtePts(rtePts);
+    setEleLines(eleLines);
+    setTimeLines(timeLines);
   }
 
-  public void setRtePts(List<RtePt> rtePts) {
-    if (rtePts == null) {
-      this.rtePts = new ArrayList<>();
+  public void setEleLines(List<List<BigDecimal>> eleLines) {
+    if (eleLines == null) {
+      this.eleLines = new ArrayList<>();
     } else {
-      this.rtePts = rtePts;
+      this.eleLines = eleLines;
+    }
+  }
+
+  public void setTimeLines(List<List<OffsetDateTime>> timeLines) {
+    if (timeLines == null) {
+      this.timeLines = new ArrayList<>();
+    } else {
+      this.timeLines = timeLines;
     }
   }
 }

@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.bremersee.common.model.AccessControlList;
+import org.bremersee.common.model.Address;
 import org.bremersee.common.model.Link;
+import org.bremersee.common.model.PhoneNumber;
 
 /**
  * @author Christian Bremer
@@ -35,20 +36,30 @@ import org.bremersee.common.model.Link;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class TrkProperties extends FeatureProperties<TrkSettings> {
+public abstract class PtProperties<S extends PtSettings> extends FeatureProperties<S> {
 
-  private List<List<BigDecimal>> eleLines;
+  private String internalType; // photo, video or not // TODO
 
-  private List<List<OffsetDateTime>> timeLines;
+  /**
+   * Elevation in meters
+   */
+  private BigDecimal ele;
 
-  public TrkProperties() {
-    eleLines = new ArrayList<>();
-    timeLines = new ArrayList<>();
-    setSettings(new TrkSettings());
+  /**
+   * Address
+   */
+  private Address address; // index?
+
+  /**
+   * Phone numbers
+   */
+  private List<PhoneNumber> phoneNumbers;
+
+  public PtProperties() {
+    phoneNumbers = new ArrayList<>();
   }
 
-  @Builder
-  public TrkProperties(
+  public PtProperties(
       AccessControlList acl,
       OffsetDateTime created,
       OffsetDateTime modified,
@@ -59,29 +70,25 @@ public class TrkProperties extends FeatureProperties<TrkSettings> {
       List<Link> links,
       OffsetDateTime startTime,
       OffsetDateTime stopTime,
-      TrkSettings settings,
-      List<List<BigDecimal>> eleLines,
-      List<List<OffsetDateTime>> timeLines) {
+      S settings,
+      String internalType,
+      BigDecimal ele,
+      Address address,
+      List<PhoneNumber> phoneNumbers) {
 
     super(acl, created, modified, name, plainTextDescription, markdownDescription,
         internalComments, links, startTime, stopTime, settings);
-    setEleLines(eleLines);
-    setTimeLines(timeLines);
+    setInternalType(internalType);
+    setEle(ele);
+    setAddress(address);
+    setPhoneNumbers(phoneNumbers);
   }
 
-  public void setEleLines(List<List<BigDecimal>> eleLines) {
-    if (eleLines == null) {
-      this.eleLines = new ArrayList<>();
+  public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
+    if (phoneNumbers == null) {
+      this.phoneNumbers = new ArrayList<>();
     } else {
-      this.eleLines = eleLines;
-    }
-  }
-
-  public void setTimeLines(List<List<OffsetDateTime>> timeLines) {
-    if (timeLines == null) {
-      this.timeLines = new ArrayList<>();
-    } else {
-      this.timeLines = timeLines;
+      this.phoneNumbers = phoneNumbers;
     }
   }
 }

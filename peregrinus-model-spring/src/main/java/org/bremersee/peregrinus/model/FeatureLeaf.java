@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,32 +14,44 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
+import java.time.OffsetDateTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.locationtech.jts.geom.MultiLineString;
+import org.bremersee.common.model.AccessControlList;
 
 /**
  * @author Christian Bremer
  */
 @Getter
 @Setter
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Rte extends Feature<MultiLineString, RteProperties> {
+@ToString(callSuper = true)
+public class FeatureLeaf extends Leaf<FeatureLeafSettings> {
 
-  public Rte() {
-    setProperties(new RteProperties());
+  private Feature feature;
+
+  public FeatureLeaf() {
+    setSettings(new FeatureLeafSettings());
   }
 
   @Builder
-  public Rte(String id, MultiLineString geometry, double[] bbox,
-      RteProperties properties) {
-    super(id, geometry, bbox, properties);
+  public FeatureLeaf(
+      String id,
+      OffsetDateTime created,
+      String createdBy,
+      OffsetDateTime modified,
+      String modifiedBy,
+      AccessControlList acl,
+      FeatureLeafSettings settings,
+      String parentId,
+      String name,
+      Feature feature) {
+    super(id, created, createdBy, modified, modifiedBy, acl, settings, parentId, name);
+    this.feature = feature;
   }
-
 }

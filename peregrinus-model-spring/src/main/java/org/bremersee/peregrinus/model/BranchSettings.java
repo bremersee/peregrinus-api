@@ -14,25 +14,37 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
  * @author Christian Bremer
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @NoArgsConstructor
-public abstract class PtSettings extends FeatureSettings {
+public final class BranchSettings extends NodeSettings {
 
-  public PtSettings(String id, String featureId, String userId) {
-    super(id, featureId, userId);
+  @Getter
+  private Boolean open = true;
+
+  @Builder
+  public BranchSettings(String id, String nodeId, String userId, Boolean open) {
+    super(id, nodeId, userId);
+    if (open != null) {
+      this.open = open;
+    }
   }
+
+  public void setOpen(Boolean open) {
+    if (open != null) {
+      this.open = open;
+    }
+  }
+
 }

@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.locationtech.jts.geom.Point;
 
 /**
  * @author Christian Bremer
@@ -32,14 +30,9 @@ import org.locationtech.jts.geom.Point;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class RtePt extends Pt<RtePtProperties> {
+public abstract class PtSettings extends FeatureSettings {
 
-  @Builder
-  public RtePt(
-      String id,
-      Point geometry,
-      double[] bbox,
-      RtePtProperties properties) {
-    super(id, geometry, bbox, properties);
+  public PtSettings(String id, String featureId, String userId) {
+    super(id, featureId, userId);
   }
 }

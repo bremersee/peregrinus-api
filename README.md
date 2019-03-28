@@ -1,2 +1,3 @@
-# peregrinus-api
-peregrinus-api
+# Peregrinus API
+
+API and model of peregrinus project.

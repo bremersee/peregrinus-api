@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,30 +26,11 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class RteSettings extends FeatureSettings {
+@ToString
+@EqualsAndHashCode
+public abstract class RteCalculationProperties {
 
-  private DisplayColor displayColor;
+  public abstract String getProvider(); // TODO provider enum
 
-  public RteSettings() {
-    displayColor = DisplayColor.MAGENTA;
-  }
-
-  @Builder
-  public RteSettings(
-      String id,
-      String featureId,
-      String userId,
-      DisplayColor displayColor) {
-
-    super(id, featureId, userId);
-    setDisplayColor(displayColor);
-  }
-
-  public void setDisplayColor(DisplayColor displayColor) {
-    if (displayColor != null) {
-      this.displayColor = displayColor;
-    }
-  }
+  public abstract boolean isCalculationSupported(); // TODO provider enum
 }

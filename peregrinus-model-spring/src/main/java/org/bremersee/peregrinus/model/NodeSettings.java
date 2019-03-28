@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,26 +40,28 @@ import lombok.ToString;
 @JsonInclude(Include.NON_EMPTY)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", visible = true)
 @JsonSubTypes({
-    @Type(value = WptProperties.class, name = "Wpt"),
-    @Type(value = TrkProperties.class, name = "Trk"),
-    @Type(value = RteProperties.class, name = "Rte")
+    @Type(value = BranchSettings.class, name = "branch-settings"),
+    @Type(value = FeatureLeafSettings.class, name = "feature-leaf-settings")
 })
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
-public abstract class FeatureSettings {
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+public class NodeSettings {
 
   private String id;
 
-  private String featureId;
+  private String nodeId;
 
   private String userId;
 
-  public FeatureSettings(String id, String featureId, String userId) {
+  // TODO state: new, normal, deleted (, deletion_accepted = remove)
+
+  NodeSettings(String id, String nodeId, String userId) {
     this.id = id;
-    this.featureId = featureId;
+    this.nodeId = nodeId;
     this.userId = userId;
   }
+
 }

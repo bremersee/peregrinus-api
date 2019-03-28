@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.MultiLineString;
 
 /**
  * @author Christian Bremer
@@ -30,15 +30,16 @@ import org.locationtech.jts.geom.Point;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Wpt extends Pt<WptProperties> {
+public class Rte extends Feature<MultiLineString, RteProperties> {
 
-  public Wpt() {
-    setProperties(new WptProperties());
+  public Rte() {
+    setProperties(new RteProperties());
   }
 
   @Builder
-  public Wpt(String id, Point geometry, double[] bbox,
-      WptProperties properties) {
+  public Rte(String id, MultiLineString geometry, double[] bbox,
+      RteProperties properties) {
     super(id, geometry, bbox, properties);
   }
+
 }

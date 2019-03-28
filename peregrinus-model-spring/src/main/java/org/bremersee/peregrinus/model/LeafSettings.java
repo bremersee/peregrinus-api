@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -26,11 +27,13 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
-public abstract class RteCalculationProperties {
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@NoArgsConstructor
+public abstract class LeafSettings extends NodeSettings {
 
-  public abstract String getProvider(); // TODO provider enum
+  public LeafSettings(String id, String nodeId, String userId) {
+    super(id, nodeId, userId);
+  }
 
-  public abstract boolean isCalculationSupported(); // TODO provider enum
 }

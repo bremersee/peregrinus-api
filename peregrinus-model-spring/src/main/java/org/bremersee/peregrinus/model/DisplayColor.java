@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.content.model;
+package org.bremersee.peregrinus.model;
 
 import lombok.Getter;
 import org.bremersee.garmin.gpx.v3.model.ext.DisplayColorT;
