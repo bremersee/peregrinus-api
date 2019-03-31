@@ -41,6 +41,12 @@ import org.locationtech.jts.geom.Geometry;
 @NoArgsConstructor
 public abstract class Feature<G extends Geometry, P extends FeatureProperties> {
 
+  public static final String WPT_TYPE = "Wpt";
+
+  public static final String TRK_TYPE = "Trk";
+
+  public static final String RTE_TYPE = "Rte";
+
   private String id;
 
   //@ApiModelProperty(dataType = "org.bremersee.geojson.model.Geometry")

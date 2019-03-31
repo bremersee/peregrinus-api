@@ -51,7 +51,9 @@ public class TrkProperties extends FeatureProperties<TrkSettings> {
   public TrkProperties(
       AccessControlList acl,
       OffsetDateTime created,
+      String createdBy,
       OffsetDateTime modified,
+      String modifiedBy,
       String name,
       String plainTextDescription,
       String markdownDescription,
@@ -63,8 +65,8 @@ public class TrkProperties extends FeatureProperties<TrkSettings> {
       List<List<BigDecimal>> eleLines,
       List<List<OffsetDateTime>> timeLines) {
 
-    super(acl, created, modified, name, plainTextDescription, markdownDescription,
-        internalComments, links, startTime, stopTime, settings);
+    super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
+        markdownDescription, internalComments, links, startTime, stopTime, settings);
     setEleLines(eleLines);
     setTimeLines(timeLines);
   }

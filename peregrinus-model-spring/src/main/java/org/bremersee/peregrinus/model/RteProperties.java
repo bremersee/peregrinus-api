@@ -47,7 +47,9 @@ public class RteProperties extends FeatureProperties<RteSettings> {
   public RteProperties(
       AccessControlList acl,
       OffsetDateTime created,
+      String createdBy,
       OffsetDateTime modified,
+      String modifiedBy,
       String name,
       String plainTextDescription,
       String markdownDescription,
@@ -58,8 +60,8 @@ public class RteProperties extends FeatureProperties<RteSettings> {
       RteSettings settings,
       List<RtePt> rtePts) {
 
-    super(acl, created, modified, name, plainTextDescription, markdownDescription,
-        internalComments, links, startTime, stopTime, settings);
+    super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
+        markdownDescription, internalComments, links, startTime, stopTime, settings);
     setRtePts(rtePts);
   }
 

@@ -62,7 +62,9 @@ public abstract class PtProperties<S extends PtSettings> extends FeatureProperti
   public PtProperties(
       AccessControlList acl,
       OffsetDateTime created,
+      String createdBy,
       OffsetDateTime modified,
+      String modifiedBy,
       String name,
       String plainTextDescription,
       String markdownDescription,
@@ -76,8 +78,8 @@ public abstract class PtProperties<S extends PtSettings> extends FeatureProperti
       Address address,
       List<PhoneNumber> phoneNumbers) {
 
-    super(acl, created, modified, name, plainTextDescription, markdownDescription,
-        internalComments, links, startTime, stopTime, settings);
+    super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
+        markdownDescription, internalComments, links, startTime, stopTime, settings);
     setInternalType(internalType);
     setEle(ele);
     setAddress(address);

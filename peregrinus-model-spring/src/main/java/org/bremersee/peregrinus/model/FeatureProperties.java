@@ -34,11 +34,11 @@ import org.bremersee.common.model.Link;
 /**
  * @author Christian Bremer
  */
-@JsonTypeInfo(use = Id.NAME, property = "subType", visible = true)
+@JsonTypeInfo(use = Id.NAME, property = "_type", visible = true)
 @JsonSubTypes({
-    @Type(value = WptProperties.class, name = "Wpt"),
-    @Type(value = TrkProperties.class, name = "Trk"),
-    @Type(value = RteProperties.class, name = "Rte")
+    @Type(value = WptProperties.class, name = Feature.WPT_TYPE),
+    @Type(value = TrkProperties.class, name = Feature.TRK_TYPE),
+    @Type(value = RteProperties.class, name = Feature.RTE_TYPE)
 })
 @Getter
 @Setter
@@ -50,11 +50,15 @@ public abstract class FeatureProperties<S extends FeatureSettings> {
 
   private OffsetDateTime created;
 
+  private String createdBy;
+
   private OffsetDateTime modified;
+
+  private String modifiedBy;
 
   private String name;
 
-  private String plainTextDescription; // desc == cmt
+  private String plainTextDescription;
 
   private String markdownDescription;
 
@@ -85,7 +89,9 @@ public abstract class FeatureProperties<S extends FeatureSettings> {
   public FeatureProperties(
       AccessControlList acl,
       OffsetDateTime created,
+      String createdBy,
       OffsetDateTime modified,
+      String modifiedBy,
       String name,
       String plainTextDescription,
       String markdownDescription,
@@ -97,7 +103,9 @@ public abstract class FeatureProperties<S extends FeatureSettings> {
 
     setAcl(acl);
     setCreated(created);
+    setCreatedBy(createdBy);
     setModified(modified);
+    setModifiedBy(modifiedBy);
     setName(name);
     setPlainTextDescription(plainTextDescription);
     setMarkdownDescription(markdownDescription);

@@ -61,7 +61,9 @@ public class RtePtProperties extends PtProperties<RtePtSettings> {
   public RtePtProperties(
       AccessControlList acl,
       OffsetDateTime created,
+      String createdBy,
       OffsetDateTime modified,
+      String modifiedBy,
       String name,
       String plainTextDescription,
       String markdownDescription,
@@ -82,9 +84,9 @@ public class RtePtProperties extends PtProperties<RtePtSettings> {
       Integer historicTrafficTravelTimeInSeconds,
       Integer liveTrafficIncidentsTravelTimeInSeconds) {
 
-    super(acl, created, modified, name, plainTextDescription, markdownDescription,
-        internalComments, links, startTime, stopTime, settings, internalType, ele, address,
-        phoneNumbers);
+    super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
+        markdownDescription, internalComments, links, startTime, stopTime, settings, internalType,
+        ele, address, phoneNumbers);
     this.calculationProperties = calculationProperties;
     this.lengthInMeters = lengthInMeters;
     this.travelTimeInSeconds = travelTimeInSeconds;

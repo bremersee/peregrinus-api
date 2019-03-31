@@ -46,7 +46,9 @@ public class WptProperties extends PtProperties<WptSettings> {
   public WptProperties(
       AccessControlList acl,
       OffsetDateTime created,
+      String createdBy,
       OffsetDateTime modified,
+      String modifiedBy,
       String name,
       String plainTextDescription,
       String markdownDescription,
@@ -60,9 +62,9 @@ public class WptProperties extends PtProperties<WptSettings> {
       Address address,
       List<PhoneNumber> phoneNumbers) {
 
-    super(acl, created, modified, name, plainTextDescription, markdownDescription,
-        internalComments, links, startTime, stopTime, settings, internalType, ele, address,
-        phoneNumbers);
+    super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
+        markdownDescription, internalComments, links, startTime, stopTime, settings, internalType,
+        ele, address, phoneNumbers);
   }
 
 }
