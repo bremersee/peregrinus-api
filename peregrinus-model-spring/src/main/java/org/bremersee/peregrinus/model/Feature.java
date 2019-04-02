@@ -16,30 +16,26 @@
 
 package org.bremersee.peregrinus.model;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.util.Arrays;
-import java.util.Objects;
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import org.bremersee.geojson.AbstractGeoJsonFeature;
+import org.bremersee.geojson.GeometryDeserializer;
+import org.bremersee.geojson.GeometrySerializer;
 import org.bremersee.geojson.utils.GeometryUtils;
 import org.locationtech.jts.geom.Geometry;
 
 /**
  * @author Christian Bremer
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", visible = true)
-@JsonSubTypes({
-})
-@JsonTypeName("Feature")
-@Getter
-@Setter
-@ToString
+@ApiModel(value = "Feature", description = "A GeoJSON feature with well defined properties.")
 @NoArgsConstructor
-public abstract class Feature<G extends Geometry, P extends FeatureProperties> {
+@SuppressWarnings("WeakerAccess")
+public class Feature
+    extends AbstractGeoJsonFeature<Geometry, FeatureProperties<? extends FeatureSettings>> {
 
   public static final String WPT_TYPE = "Wpt";
 
@@ -47,48 +43,58 @@ public abstract class Feature<G extends Geometry, P extends FeatureProperties> {
 
   public static final String RTE_TYPE = "Rte";
 
+  public static final String RTE_PT_TYPE = "RtePt";
+
+  @JsonIgnore
   private String id;
 
-  //@ApiModelProperty(dataType = "org.bremersee.geojson.model.Geometry")
-  private G geometry;
+  @JsonIgnore
+  private Geometry geometry;
 
-  private double[] bbox;
-
-  private P properties;
-
-  public Feature(String id, G geometry, double[] bbox, P properties) {
+  public Feature(
+      String id,
+      Geometry geometry,
+      double[] bbox,
+      FeatureProperties<? extends FeatureSettings> properties) {
     setId(id);
     setGeometry(geometry);
     setBbox(bbox);
     setProperties(properties);
   }
 
-  public void setProperties(final P properties) {
-    if (properties != null) {
-      this.properties = properties;
-    }
+  @Override
+  public String getId() {
+    return id;
   }
 
   @Override
-  public int hashCode() {
-    int result = Objects.hash(id, geometry, properties);
-    result = 31 * result + Arrays.hashCode(bbox);
-    return result;
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  @ApiModelProperty(value = "GeoJSON", dataType = "org.bremersee.geojson.model.Geometry")
+  @JsonSerialize(using = GeometrySerializer.class)
+  @Override
+  public Geometry getGeometry() {
+    return geometry;
+  }
+
+  @ApiModelProperty(value = "GeoJSON", dataType = "org.bremersee.geojson.model.Geometry")
+  @JsonDeserialize(using = GeometryDeserializer.class)
+  @Override
+  public void setGeometry(final Geometry geometry) {
+    this.geometry = geometry;
   }
 
   @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
+  protected boolean equals(final Geometry g1, final Object g2) {
+    if (g1 == g2) {
       return true;
-    }
-    if (!(o instanceof Feature)) {
+    } else if (g1 != null && g2 instanceof Geometry) {
+      return GeometryUtils.equals(g1, (Geometry) g2);
+    } else {
       return false;
     }
-    Feature<?, ?> feature = (Feature<?, ?>) o;
-    return Objects.equals(id, feature.id) &&
-        GeometryUtils.equals(geometry, feature.geometry) &&
-        Arrays.equals(bbox, feature.bbox) &&
-        Objects.equals(properties, feature.properties);
   }
 
 }

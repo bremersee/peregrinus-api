@@ -17,22 +17,16 @@
 package org.bremersee.peregrinus.model;
 
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 import org.locationtech.jts.geom.Point;
 
 /**
  * @author Christian Bremer
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-public class RtePt extends Pt<RtePtProperties> {
+public class RtePt extends Pt {
+
+  public RtePt() {
+    setProperties(new RtePtProperties());
+  }
 
   @Builder
   public RtePt(
@@ -42,4 +36,19 @@ public class RtePt extends Pt<RtePtProperties> {
       RtePtProperties properties) {
     super(id, geometry, bbox, properties);
   }
+
+  @Override
+  public RtePtProperties getProperties() {
+    return (RtePtProperties) super.getProperties();
+  }
+
+  @Override
+  public void setProperties(FeatureProperties<? extends FeatureSettings> properties) {
+    if (properties == null || properties instanceof RtePtProperties) {
+      super.setProperties(properties);
+    } else {
+      throw new IllegalArgumentException("Properties must be of type 'RtePtProperties'.");
+    }
+  }
+
 }

@@ -16,6 +16,7 @@
 
 package org.bremersee.peregrinus.model;
 
+import io.swagger.annotations.ApiModel;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -32,11 +33,19 @@ import org.bremersee.common.model.PhoneNumber;
 /**
  * @author Christian Bremer
  */
+@ApiModel(
+    value = "PtProperties",
+    description = "Common properties of a point.",
+    parent = FeatureProperties.class,
+    subTypes = {
+        WptProperties.class,
+        RtePtProperties.class
+    })
 @Getter
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public abstract class PtProperties<S extends PtSettings> extends FeatureProperties<S> {
+public class PtProperties<S extends PtSettings> extends FeatureProperties<S> {
 
   private String internalType; // photo, video or not // TODO
 

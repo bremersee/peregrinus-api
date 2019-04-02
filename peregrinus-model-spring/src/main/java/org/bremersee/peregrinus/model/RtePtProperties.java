@@ -16,6 +16,7 @@
 
 package org.bremersee.peregrinus.model;
 
+import io.swagger.annotations.ApiModel;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -32,6 +33,10 @@ import org.bremersee.common.model.PhoneNumber;
 /**
  * @author Christian Bremer
  */
+@ApiModel(
+    value = "RtePtProperties",
+    description = "Properties of a route point.",
+    parent = PtProperties.class)
 @Getter
 @Setter
 @ToString(callSuper = true)

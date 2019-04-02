@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.swagger.annotations.ApiModel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,16 +33,18 @@ import lombok.ToString;
 /**
  * @author Christian Bremer
  */
+@ApiModel(value = "FeatureSettings", description = "Common settings of a GeoJSON feature.")
 @JsonAutoDetect(
     fieldVisibility = Visibility.ANY,
     getterVisibility = Visibility.NONE,
     setterVisibility = Visibility.NONE)
 @JsonInclude(Include.NON_EMPTY)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", visible = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "_type")
 @JsonSubTypes({
-    @Type(value = WptProperties.class, name = "Wpt"),
-    @Type(value = TrkProperties.class, name = "Trk"),
-    @Type(value = RteProperties.class, name = "Rte")
+    @Type(value = WptSettings.class, name = Feature.WPT_TYPE),
+    @Type(value = TrkSettings.class, name = Feature.TRK_TYPE),
+    @Type(value = RteSettings.class, name = Feature.RTE_TYPE),
+    @Type(value = RtePtSettings.class, name = Feature.RTE_PT_TYPE)
 })
 @Getter
 @Setter

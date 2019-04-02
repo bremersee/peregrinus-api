@@ -16,31 +16,51 @@
 
 package org.bremersee.peregrinus.model;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import java.time.OffsetDateTime;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.bremersee.garmin.trip.v1.model.ext.NamedRoadT;
 
 /**
  * @author Christian Bremer
  */
-@JsonTypeInfo(use = Id.NAME, property = "_type")
-@JsonSubTypes({
-    @Type(
-        value = GarminImportRteCalculationProperties.class,
-        name = "GarminImportRteCalculationProperties")
-})
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
-public abstract class RteCalculationProperties {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class GarminImportRteCalculationProperties extends RteCalculationProperties {
 
-  public abstract String getProvider(); // TODO provider enum
+  private String transportationMode;
 
-  public abstract boolean isCalculationSupported(); // TODO provider enum
+  private OffsetDateTime departureTime;
+
+  private Long stopDurationMillis;
+
+  private OffsetDateTime arrivalTime;
+
+  private String calculationMode;
+
+  private String elevationMode;
+
+  private NamedRoadT namedRoad;
+
+  @Override
+  public String getProvider() {
+    return "GarminImport";
+  }
+
+  protected void setProvider(String provider) {
+    // ignored
+  }
+
+  @Override
+  public boolean isCalculationSupported() {
+    return false;
+  }
+
+  protected void setCalculationSupported(boolean calculationSupported) {
+    // ignored
+  }
 }

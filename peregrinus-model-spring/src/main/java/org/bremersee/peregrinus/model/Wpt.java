@@ -17,20 +17,12 @@
 package org.bremersee.peregrinus.model;
 
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.locationtech.jts.geom.Point;
 
 /**
  * @author Christian Bremer
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class Wpt extends Pt<WptProperties> {
+public class Wpt extends Pt {
 
   public Wpt() {
     setProperties(new WptProperties());
@@ -41,4 +33,19 @@ public class Wpt extends Pt<WptProperties> {
       WptProperties properties) {
     super(id, geometry, bbox, properties);
   }
+
+  @Override
+  public WptProperties getProperties() {
+    return (WptProperties) super.getProperties();
+  }
+
+  @Override
+  public void setProperties(FeatureProperties<? extends FeatureSettings> properties) {
+    if (properties == null || properties instanceof WptProperties) {
+      super.setProperties(properties);
+    } else {
+      throw new IllegalArgumentException("Properties must be of type 'WptProperties'.");
+    }
+  }
+
 }

@@ -16,32 +16,19 @@
 
 package org.bremersee.peregrinus.model;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import org.bremersee.geojson.AbstractGeoJsonFeatureCollection;
 
 /**
  * @author Christian Bremer
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", visible = true)
-@JsonSubTypes({
-})
-@JsonTypeName("FeatureCollection")
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-public class FeatureCollection {
+public class FeatureCollection
+    extends AbstractGeoJsonFeatureCollection<Feature> {
 
-  private List<Feature> features;
+  public FeatureCollection() {
+  }
 
-  private double[] bbox;
-
+  public FeatureCollection(List<Feature> features, double[] bbox) {
+    super(features, bbox);
+  }
 }

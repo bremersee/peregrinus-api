@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import io.swagger.annotations.ApiModel;
 import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -34,17 +35,27 @@ import org.bremersee.common.model.Link;
 /**
  * @author Christian Bremer
  */
-@JsonTypeInfo(use = Id.NAME, property = "_type", visible = true)
+@ApiModel(
+    value = "FeatureProperties",
+    description = "Common properties of a GeoJSON feature.",
+    discriminator = "_type",
+    subTypes = {
+        PtProperties.class,
+        TrkProperties.class,
+        RteProperties.class
+    })
+@JsonTypeInfo(use = Id.NAME, property = "_type")
 @JsonSubTypes({
     @Type(value = WptProperties.class, name = Feature.WPT_TYPE),
     @Type(value = TrkProperties.class, name = Feature.TRK_TYPE),
-    @Type(value = RteProperties.class, name = Feature.RTE_TYPE)
+    @Type(value = RteProperties.class, name = Feature.RTE_TYPE),
+    @Type(value = RtePtProperties.class, name = Feature.RTE_PT_TYPE)
 })
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
-public abstract class FeatureProperties<S extends FeatureSettings> {
+public class FeatureProperties<S extends FeatureSettings> {
 
   private AccessControlList acl;
 

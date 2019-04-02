@@ -16,24 +16,49 @@
 
 package org.bremersee.peregrinus.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
 
 /**
  * @author Christian Bremer
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public abstract class Pt<P extends PtProperties> extends Feature<Point, P> {
+public abstract class Pt extends Feature {
 
-  public Pt(String id, Point geometry, double[] bbox, P properties) {
+  public Pt(
+      String id,
+      Point geometry,
+      double[] bbox,
+      PtProperties<? extends PtSettings> properties) {
     super(id, geometry, bbox, properties);
+  }
+
+  @Override
+  public Point getGeometry() {
+    return (Point) super.getGeometry();
+  }
+
+  @Override
+  public void setGeometry(Geometry geometry) {
+    if (geometry == null || geometry instanceof Point) {
+      super.setGeometry(geometry);
+    } else {
+      throw new IllegalArgumentException("Geometry must be of type 'Point'.");
+    }
+  }
+
+  @Override
+  public PtProperties<? extends PtSettings> getProperties() {
+    return (PtProperties<? extends PtSettings>) super.getProperties();
+  }
+
+  @Override
+  public void setProperties(FeatureProperties<? extends FeatureSettings> properties) {
+    if (properties == null || properties instanceof PtProperties) {
+      super.setProperties(properties);
+    } else {
+      throw new IllegalArgumentException("Properties must be of type 'PtSettings'.");
+    }
   }
 }
