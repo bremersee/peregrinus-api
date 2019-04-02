@@ -31,7 +31,7 @@ import org.locationtech.jts.geom.Geometry;
 /**
  * @author Christian Bremer
  */
-@ApiModel(value = "Feature", description = "A GeoJSON feature with well defined properties.")
+@ApiModel(value = "Feature", description = "A GeoJSON feature with well known properties.")
 @NoArgsConstructor
 @SuppressWarnings("WeakerAccess")
 public class Feature
