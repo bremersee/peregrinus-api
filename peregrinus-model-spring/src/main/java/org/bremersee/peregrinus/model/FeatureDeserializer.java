@@ -28,7 +28,6 @@ import java.util.Map;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.MultiLineString;
 import org.locationtech.jts.geom.Point;
-import org.springframework.util.Assert;
 
 /**
  * @author Christian Bremer
@@ -51,16 +50,11 @@ public class FeatureDeserializer extends StdDeserializer<Feature> {
     Map<String, Object> unknown = new LinkedHashMap<>();
     JsonToken currentToken;
     while ((currentToken = jp.nextValue()) != null) {
-      if (JsonToken.VALUE_NULL.equals(currentToken)) {
-        if ("geometry".equals(jp.getCurrentName())) {
-          throw new FeatureParserException("Type 'geometry' is required.");
-        } else if ("properties".equals(jp.getCurrentName())) {
-          throw new FeatureParserException("Type 'properties' is required.");
-        }
-      } else if (JsonToken.VALUE_STRING.equals(currentToken)) {
+      if (JsonToken.VALUE_STRING.equals(currentToken)) {
         if ("type".equals(jp.getCurrentName())) {
-          Assert.isTrue(
-              "Feature".equalsIgnoreCase(jp.getText()), "Type must be 'Feature'.");
+          if (!"Feature".equals(jp.getText())) {
+            throw new FeatureParserException("Type 'type' must be 'Feature'.");
+          }
         } else if ("id".equals(jp.getCurrentName())) {
           id = jp.getText();
         } else {
@@ -102,6 +96,11 @@ public class FeatureDeserializer extends StdDeserializer<Feature> {
       String id,
       Map<String, Object> unknown) throws JsonProcessingException {
 
+    if (geometry == null) {
+      throw new FeatureParserException("Type 'geometry' is required.");
+    } else if (properties == null) {
+      throw new FeatureParserException("Type 'properties' is required.");
+    }
     Feature feature = null;
     if (properties instanceof RteProperties) {
       if (!(geometry instanceof MultiLineString)) {
