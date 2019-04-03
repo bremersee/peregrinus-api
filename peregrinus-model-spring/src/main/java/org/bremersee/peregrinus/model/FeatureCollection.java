@@ -37,7 +37,7 @@ public class FeatureCollection
   }
 
   @JsonProperty("features")
-  @JsonDeserialize(using = FeatureDeserializer.class)
+  @JsonDeserialize(contentUsing = FeatureDeserializer.class)
   public void setFeatures(List<Feature> features) {
     super.setFeatures(features == null
         ? null

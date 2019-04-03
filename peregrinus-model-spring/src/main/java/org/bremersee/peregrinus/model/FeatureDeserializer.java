@@ -103,11 +103,11 @@ public class FeatureDeserializer extends StdDeserializer<Feature> {
     } else if (properties instanceof RtePtProperties
         && (geometry == null || geometry instanceof Point)) {
       feature = new RtePt();
-    } else if (properties instanceof TrkProperties && (geometry == null
-        || geometry instanceof MultiLineString)) {
+    } else if (properties instanceof TrkProperties
+        && (geometry == null || geometry instanceof MultiLineString)) {
       feature = new Trk();
-    } else if (properties instanceof WptProperties && (geometry == null
-        || geometry instanceof Point)) {
+    } else if (properties instanceof WptProperties
+        && (geometry == null || geometry instanceof Point)) {
       feature = new Wpt();
     }
     if (feature == null) {
@@ -127,35 +127,5 @@ public class FeatureDeserializer extends StdDeserializer<Feature> {
       super(msg);
     }
   }
-
-  /*
-  public static void main(String[] args) throws Exception {
-    ObjectMapper om = new ObjectMapper();
-    om.registerModules(
-        new GeoJsonObjectMapperModule(),
-        new PeregrinusObjectMapperModule(),
-        new Jdk8Module(),
-        new JavaTimeModule());
-    om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
-    Point point = GeometryUtils.createPoint(10.5, 52.3);
-    Wpt wpt = Wpt.builder()
-        .id("123")
-        .geometry(point)
-        .bbox(GeometryUtils.getBoundingBox(point))
-        .properties(WptProperties.builder().build())
-        .build();
-
-    String json = om.writeValueAsString(wpt);
-    json = "{\"type\":\"Feature\",\"arr\": [\"str\", \"zwei\"],\"id\":\"123\",\"bbox\":[10.5,52.3,10.5,52.3],\"geometry\":{\"type\":\"Point\",\"coordinates\":[10.5,52.3]},\"properties\":{\"_type\":\"Wpt\",\"acl\":null,\"created\":null,\"createdBy\":null,\"modified\":null,\"modifiedBy\":null,\"name\":null,\"plainTextDescription\":null,\"markdownDescription\":null,\"internalComments\":null,\"links\":[],\"startTime\":null,\"stopTime\":null,\"settings\":null,\"internalType\":null,\"ele\":null,\"address\":null,\"phoneNumbers\":[]}}";
-    System.out.println(json);
-    System.out.println("---");
-
-    Feature f = om.readValue(json, Feature.class);
-    System.out.println(f);
-    System.out.println("---");
-    System.out.println(f.unknown());
-  }
-  */
 
 }
