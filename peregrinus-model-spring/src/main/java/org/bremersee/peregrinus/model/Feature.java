@@ -17,6 +17,7 @@
 package org.bremersee.peregrinus.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
@@ -72,18 +73,40 @@ public abstract class Feature
     this.id = id;
   }
 
-  @ApiModelProperty(value = "GeoJSON", dataType = "org.bremersee.geojson.model.Geometry")
+  @ApiModelProperty(
+      value = "GeoJSON",
+      required = true,
+      dataType = "org.bremersee.geojson.model.Geometry")
+  @JsonProperty(value = "geometry", required = true)
   @JsonSerialize(using = GeometrySerializer.class)
   @Override
   public Geometry getGeometry() {
     return geometry;
   }
 
-  @ApiModelProperty(value = "GeoJSON", dataType = "org.bremersee.geojson.model.Geometry")
+  @ApiModelProperty(
+      value = "GeoJSON",
+      required = true,
+      dataType = "org.bremersee.geojson.model.Geometry")
+  @JsonProperty(value = "geometry", required = true)
   @JsonDeserialize(using = GeometryDeserializer.class)
   @Override
   public void setGeometry(final Geometry geometry) {
     this.geometry = geometry;
+  }
+
+  @ApiModelProperty(value = "The feature properties.", required = true)
+  @JsonProperty(value = "properties", required = true)
+  @Override
+  public FeatureProperties<? extends FeatureSettings> getProperties() {
+    return super.getProperties();
+  }
+
+  @ApiModelProperty(value = "The feature properties.", required = true)
+  @JsonProperty(value = "properties", required = true)
+  @Override
+  public void setProperties(FeatureProperties<? extends FeatureSettings> properties) {
+    super.setProperties(properties);
   }
 
   @Override

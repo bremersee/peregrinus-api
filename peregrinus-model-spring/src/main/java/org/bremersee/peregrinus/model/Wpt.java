@@ -42,7 +42,7 @@ public class Wpt extends Pt {
   @Override
   public void setProperties(FeatureProperties<? extends FeatureSettings> properties) {
     if (properties == null || properties instanceof WptProperties) {
-      super.setProperties(properties);
+      super.setProperties(properties != null ? properties : new WptProperties());
     } else {
       throw new IllegalArgumentException("Properties must be of type 'WptProperties'.");
     }

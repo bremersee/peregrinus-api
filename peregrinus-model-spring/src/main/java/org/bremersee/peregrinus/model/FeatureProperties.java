@@ -16,11 +16,13 @@
 
 package org.bremersee.peregrinus.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -67,6 +69,8 @@ public abstract class FeatureProperties<S extends FeatureSettings> {
 
   private String modifiedBy;
 
+  @ApiModelProperty(value = "The name of the feature.", required = true)
+  @JsonProperty(value = "name", required = true)
   private String name;
 
   private String plainTextDescription;

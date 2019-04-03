@@ -51,7 +51,13 @@ public class FeatureDeserializer extends StdDeserializer<Feature> {
     Map<String, Object> unknown = new LinkedHashMap<>();
     JsonToken currentToken;
     while ((currentToken = jp.nextValue()) != null) {
-      if (JsonToken.VALUE_STRING.equals(currentToken)) {
+      if (JsonToken.VALUE_NULL.equals(currentToken)) {
+        if ("geometry".equals(jp.getCurrentName())) {
+          throw new FeatureParserException("Type 'geometry' is required.");
+        } else if ("properties".equals(jp.getCurrentName())) {
+          throw new FeatureParserException("Type 'properties' is required.");
+        }
+      } else if (JsonToken.VALUE_STRING.equals(currentToken)) {
         if ("type".equals(jp.getCurrentName())) {
           Assert.isTrue(
               "Feature".equalsIgnoreCase(jp.getText()), "Type must be 'Feature'.");
@@ -97,17 +103,25 @@ public class FeatureDeserializer extends StdDeserializer<Feature> {
       Map<String, Object> unknown) throws JsonProcessingException {
 
     Feature feature = null;
-    if (properties instanceof RteProperties
-        && (geometry == null || geometry instanceof MultiLineString)) {
+    if (properties instanceof RteProperties) {
+      if (!(geometry instanceof MultiLineString)) {
+        throw new FeatureParserException("Geometry must be of type 'MultiLineString'.");
+      }
       feature = new Rte();
-    } else if (properties instanceof RtePtProperties
-        && (geometry == null || geometry instanceof Point)) {
+    } else if (properties instanceof RtePtProperties) {
+      if (!(geometry instanceof Point)) {
+        throw new FeatureParserException("Geometry must be of type 'Point'.");
+      }
       feature = new RtePt();
-    } else if (properties instanceof TrkProperties
-        && (geometry == null || geometry instanceof MultiLineString)) {
+    } else if (properties instanceof TrkProperties) {
+      if (!(geometry instanceof MultiLineString)) {
+        throw new FeatureParserException("Geometry must be of type 'MultiLineString'.");
+      }
       feature = new Trk();
-    } else if (properties instanceof WptProperties
-        && (geometry == null || geometry instanceof Point)) {
+    } else if (properties instanceof WptProperties) {
+      if (!(geometry instanceof Point)) {
+        throw new FeatureParserException("Geometry must be of type 'Point'.");
+      }
       feature = new Wpt();
     }
     if (feature == null) {

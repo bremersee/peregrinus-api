@@ -57,7 +57,7 @@ public class Trk extends Feature {
   @Override
   public void setProperties(FeatureProperties<? extends FeatureSettings> properties) {
     if (properties == null || properties instanceof TrkProperties) {
-      super.setProperties(properties);
+      super.setProperties(properties != null ? properties : new TrkProperties());
     } else {
       throw new IllegalArgumentException("Properties must be of type 'TrkProperties'.");
     }
