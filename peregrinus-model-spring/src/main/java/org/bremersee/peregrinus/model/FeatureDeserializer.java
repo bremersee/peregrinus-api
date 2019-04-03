@@ -28,6 +28,7 @@ import java.util.Map;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.MultiLineString;
 import org.locationtech.jts.geom.Point;
+import org.springframework.util.StringUtils;
 
 /**
  * @author Christian Bremer
@@ -57,7 +58,7 @@ public class FeatureDeserializer extends StdDeserializer<Feature> {
           }
         } else if ("id".equals(jp.getCurrentName())) {
           id = jp.getText();
-        } else {
+        } else if (StringUtils.hasText(jp.getCurrentName())) {
           unknown.put(jp.getCurrentName(), jp.getText());
         }
       } else if (JsonToken.START_OBJECT.equals(currentToken)) {
@@ -66,22 +67,34 @@ public class FeatureDeserializer extends StdDeserializer<Feature> {
         } else if ("properties".equals(jp.getCurrentName())) {
           //noinspection unchecked
           properties = jp.getCodec().readValue(jp, FeatureProperties.class);
-        } else {
+        } else if (StringUtils.hasText(jp.getCurrentName())) {
           unknown.put(jp.getCurrentName(), jp.getCodec().readValue(jp, Map.class));
         }
       } else if (JsonToken.START_ARRAY.equals(currentToken)) {
         if ("bbox".equals(jp.getCurrentName())) {
           bbox = jp.getCodec().readValue(jp, double[].class);
-        } else {
+        } else if (StringUtils.hasText(jp.getCurrentName())) {
           unknown.put(jp.getCurrentName(), jp.getCodec().readValue(jp, List.class));
         }
       } else if (JsonToken.VALUE_FALSE.equals(currentToken)
           || JsonToken.VALUE_TRUE.equals(currentToken)) {
-        unknown.put(jp.getCurrentName(), jp.getBooleanValue());
+        if (StringUtils.hasText(jp.getCurrentName())) {
+          unknown.put(jp.getCurrentName(), jp.getBooleanValue());
+        } else {
+          break;
+        }
       } else if (JsonToken.VALUE_NUMBER_FLOAT.equals(currentToken)) {
-        unknown.put(jp.getCurrentName(), jp.getDecimalValue());
+        if (StringUtils.hasText(jp.getCurrentName())) {
+          unknown.put(jp.getCurrentName(), jp.getDecimalValue());
+        } else {
+          break;
+        }
       } else if (JsonToken.VALUE_NUMBER_INT.equals(currentToken)) {
-        unknown.put(jp.getCurrentName(), jp.getBigIntegerValue());
+        if (StringUtils.hasText(jp.getCurrentName())) {
+          unknown.put(jp.getCurrentName(), jp.getBigIntegerValue());
+        } else {
+          break;
+        }
       } else if (JsonToken.END_OBJECT.equals(currentToken)) {
         break;
       }
