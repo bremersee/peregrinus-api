@@ -34,7 +34,7 @@ import org.locationtech.jts.geom.Geometry;
 @ApiModel(value = "Feature", description = "A GeoJSON feature with well known properties.")
 @NoArgsConstructor
 @SuppressWarnings("WeakerAccess")
-public class Feature
+public abstract class Feature
     extends AbstractGeoJsonFeature<Geometry, FeatureProperties<? extends FeatureSettings>> {
 
   public static final String WPT_TYPE = "Wpt";

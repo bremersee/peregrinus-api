@@ -55,7 +55,7 @@ import org.bremersee.common.model.Link;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class FeatureProperties<S extends FeatureSettings> {
+public abstract class FeatureProperties<S extends FeatureSettings> {
 
   private AccessControlList acl;
 
