@@ -91,6 +91,9 @@ public abstract class FeatureProperties<S extends FeatureSettings> {
    */
   private OffsetDateTime stopTime;
 
+  @ApiModelProperty(
+      value = "The private settings.",
+      dataType = "org.bremersee.peregrinus.model.FeatureLeafSettings")
   private S settings;
 
   public FeatureProperties() {
