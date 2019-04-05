@@ -18,6 +18,7 @@ package org.bremersee.peregrinus.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
@@ -388,8 +389,10 @@ public class NominatimGeocodeQueryRequest extends GeocodeQueryRequest {
     if (getBoundingBox() != null && getBoundingBox().length == 4) {
       map.set(
           "viewbox",
-          getBoundingBox()[0] + "," + getBoundingBox()[1] + ","
-              + getBoundingBox()[2] + "," + getBoundingBox()[3]);
+          BigDecimal.valueOf(getBoundingBox()[0]).toPlainString()
+              + "," + BigDecimal.valueOf(getBoundingBox()[1]).toPlainString()
+              + "," + BigDecimal.valueOf(getBoundingBox()[2]).toPlainString()
+              + "," + BigDecimal.valueOf(getBoundingBox()[3]).toPlainString());
     }
     if (getCountryCodes() != null && !getCountryCodes().isEmpty()) {
       map.set("countrycodes", StringUtils.collectionToCommaDelimitedString(
