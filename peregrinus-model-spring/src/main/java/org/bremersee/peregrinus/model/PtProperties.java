@@ -29,6 +29,7 @@ import org.bremersee.common.model.AccessControlList;
 import org.bremersee.common.model.Address;
 import org.bremersee.common.model.Link;
 import org.bremersee.common.model.PhoneNumber;
+import org.locationtech.jts.geom.Polygon;
 
 /**
  * @author Christian Bremer
@@ -57,12 +58,22 @@ public class PtProperties<S extends PtSettings> extends FeatureProperties<S> {
   /**
    * Address
    */
-  private Address address; // index?
+  private Address address; // index, db ref?
 
   /**
    * Phone numbers
    */
   private List<PhoneNumber> phoneNumbers;
+
+  private Polygon area;
+
+  private String osmId;
+
+  private String osmType;
+
+  private String osmPlaceId;
+
+  private String osmCategory;
 
   public PtProperties() {
     phoneNumbers = new ArrayList<>();
@@ -85,7 +96,12 @@ public class PtProperties<S extends PtSettings> extends FeatureProperties<S> {
       String internalType,
       BigDecimal ele,
       Address address,
-      List<PhoneNumber> phoneNumbers) {
+      List<PhoneNumber> phoneNumbers,
+      Polygon area,
+      String osmId,
+      String osmType,
+      String osmPlaceId,
+      String osmCategory) {
 
     super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
         markdownDescription, internalComments, links, startTime, stopTime, settings);
@@ -93,6 +109,11 @@ public class PtProperties<S extends PtSettings> extends FeatureProperties<S> {
     setEle(ele);
     setAddress(address);
     setPhoneNumbers(phoneNumbers);
+    setArea(area);
+    setOsmId(osmId);
+    setOsmType(osmType);
+    setOsmPlaceId(osmPlaceId);
+    setOsmCategory(osmCategory);
   }
 
   public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {

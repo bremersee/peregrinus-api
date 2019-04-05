@@ -29,6 +29,7 @@ import org.bremersee.common.model.AccessControlList;
 import org.bremersee.common.model.Address;
 import org.bremersee.common.model.Link;
 import org.bremersee.common.model.PhoneNumber;
+import org.locationtech.jts.geom.Polygon;
 
 /**
  * @author Christian Bremer
@@ -81,6 +82,11 @@ public class RtePtProperties extends PtProperties<RtePtSettings> {
       BigDecimal ele,
       Address address,
       List<PhoneNumber> phoneNumbers,
+      Polygon area,
+      String osmId,
+      String osmType,
+      String osmPlaceId,
+      String osmCategory,
       RteCalculationProperties calculationProperties,
       Integer lengthInMeters,
       Integer travelTimeInSeconds,
@@ -91,7 +97,7 @@ public class RtePtProperties extends PtProperties<RtePtSettings> {
 
     super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
         markdownDescription, internalComments, links, startTime, stopTime, settings, internalType,
-        ele, address, phoneNumbers);
+        ele, address, phoneNumbers, area, osmId, osmType, osmPlaceId, osmCategory);
     this.calculationProperties = calculationProperties;
     this.lengthInMeters = lengthInMeters;
     this.travelTimeInSeconds = travelTimeInSeconds;
