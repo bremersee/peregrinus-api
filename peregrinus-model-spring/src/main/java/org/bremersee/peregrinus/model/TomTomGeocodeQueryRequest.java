@@ -129,7 +129,7 @@ public class TomTomGeocodeQueryRequest extends GeocodeQueryRequest {
     return null;
   }
 
-  public String buildPathPath() {
+  public String buildPath() {
     return "/geocode/" + UriUtils.encodePath(getQuery(), StandardCharsets.UTF_8) + ".json";
   }
 
