@@ -18,6 +18,7 @@ package org.bremersee.peregrinus.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ public class FeatureCollection
   public FeatureCollection() {
   }
 
-  public FeatureCollection(List<Feature> features, double[] bbox) {
+  public FeatureCollection(Collection<? extends Feature> features, double[] bbox) {
     super(features, bbox);
   }
 
