@@ -18,22 +18,13 @@ package org.bremersee.peregrinus.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.bremersee.common.model.HttpLanguageTag;
-import org.bremersee.common.model.TwoLetterCountryCode;
 import org.bremersee.common.model.TwoLetterCountryCodes;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
-import org.springframework.web.util.UriUtils;
 
 /**
  * The nominatim geocode query request.
@@ -370,65 +361,6 @@ public class NominatimGeocodeQueryRequest extends GeocodeQueryRequest {
   @JsonProperty("nameDetails")
   public void setNameDetails(Boolean nameDetails) {
     this.nameDetails = !Boolean.FALSE.equals(nameDetails);
-  }
-
-  /**
-   * Build parameters multi value map.
-   *
-   * @param urlEncode the url encode
-   * @return the multi value map
-   */
-  public final MultiValueMap<String, String> buildParameters(final boolean urlEncode) {
-    final MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-    map.set("format", "jsonv2");
-    if (getLanguage() != null) {
-      map.set("accept-language", getLanguage().toString());
-    } else {
-      map.set("accept-language", "en");
-    }
-    if (getBoundingBox() != null && getBoundingBox().length == 4) {
-      map.set(
-          "viewbox",
-          BigDecimal.valueOf(getBoundingBox()[0]).toPlainString()
-              + "," + BigDecimal.valueOf(getBoundingBox()[1]).toPlainString()
-              + "," + BigDecimal.valueOf(getBoundingBox()[2]).toPlainString()
-              + "," + BigDecimal.valueOf(getBoundingBox()[3]).toPlainString());
-    }
-    if (getCountryCodes() != null && !getCountryCodes().isEmpty()) {
-      map.set("countrycodes", StringUtils.collectionToCommaDelimitedString(
-          getCountryCodes()
-              .stream()
-              .filter(Objects::nonNull)
-              .map(TwoLetterCountryCode::toString)
-              .collect(Collectors.toSet())));
-    }
-    map.set("limit", String.valueOf(getLimit()));
-
-    map.set("bounded", Boolean.TRUE.equals(getBounded()) ? "1" : "0");
-    if (getExcludePlaceIds() != null && !getExcludePlaceIds().isEmpty()) {
-      map.set(
-          "exclude_place_ids",
-          StringUtils.collectionToCommaDelimitedString(getExcludePlaceIds()));
-    }
-    map.set("dedupe", Boolean.FALSE.equals(getDedupe()) ? "0" : "1");
-    map.set("debug", Boolean.TRUE.equals(getDebug()) ? "1" : "0");
-
-    map.set("addressdetails", Boolean.FALSE.equals(getAddressDetails()) ? "0" : "1");
-    if (StringUtils.hasText(getEmail())) {
-      map.set(
-          "email",
-          urlEncode ? UriUtils.encodeQueryParam(getEmail(), StandardCharsets.UTF_8) : getEmail());
-    }
-    if (getPolygon() == null || Boolean.TRUE.equals(getPolygon())) {
-      map.set("polygon_geojson", "1");
-    }
-    map.set("extratags", Boolean.FALSE.equals(getExtraTags()) ? "0" : "1");
-    map.set("namedetails", Boolean.FALSE.equals(getNameDetails()) ? "0" : "1");
-
-    map.set(
-        "q",
-        urlEncode ? UriUtils.encodeQueryParam(getQuery(), StandardCharsets.UTF_8) : getQuery());
-    return map;
   }
 
 }
