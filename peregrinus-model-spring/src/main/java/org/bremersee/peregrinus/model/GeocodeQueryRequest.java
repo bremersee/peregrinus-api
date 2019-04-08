@@ -28,6 +28,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.bremersee.common.model.HttpLanguageTag;
 import org.bremersee.common.model.TwoLetterCountryCodes;
+import org.bremersee.peregrinus.model.google.GoogleGeocodeQueryRequest;
+import org.bremersee.peregrinus.model.nominatim.NominatimGeocodeQueryRequest;
+import org.bremersee.peregrinus.model.tomtom.TomTomGeocodeQueryRequest;
 
 /**
  * @author Christian Bremer

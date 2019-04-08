@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.model;
+package org.bremersee.peregrinus.model.garmin;
 
 import java.time.OffsetDateTime;
 import lombok.EqualsAndHashCode;
@@ -22,6 +22,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.bremersee.garmin.trip.v1.model.ext.NamedRoadT;
+import org.bremersee.peregrinus.model.RtePtCalculationProperties;
 
 /**
  * @author Christian Bremer
@@ -30,7 +31,7 @@ import org.bremersee.garmin.trip.v1.model.ext.NamedRoadT;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class GarminImportRteCalculationProperties extends RteCalculationProperties {
+public class GarminRtePtCalculationProperties extends RtePtCalculationProperties {
 
   private String transportationMode;
 
@@ -46,21 +47,4 @@ public class GarminImportRteCalculationProperties extends RteCalculationProperti
 
   private NamedRoadT namedRoad;
 
-  @Override
-  public String getProvider() {
-    return "GarminImport";
-  }
-
-  protected void setProvider(String provider) {
-    // ignored
-  }
-
-  @Override
-  public boolean isCalculationSupported() {
-    return false;
-  }
-
-  protected void setCalculationSupported(boolean calculationSupported) {
-    // ignored
-  }
 }

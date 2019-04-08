@@ -60,13 +60,13 @@ public class RteProperties extends FeatureProperties<RteSettings> {
       String markdownDescription,
       String internalComments,
       List<Link> links,
-      OffsetDateTime startTime,
-      OffsetDateTime stopTime,
+      OffsetDateTime departureTime,
+      OffsetDateTime arrivalTime,
       RteSettings settings,
       List<RtePt> rtePts) {
 
     super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
-        markdownDescription, internalComments, links, startTime, stopTime, settings);
+        markdownDescription, internalComments, links, departureTime, arrivalTime, settings);
     setRtePts(rtePts);
   }
 

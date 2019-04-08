@@ -60,8 +60,8 @@ public class WptProperties extends PtProperties<WptSettings> {
       String markdownDescription,
       String internalComments,
       List<Link> links,
-      OffsetDateTime startTime,
-      OffsetDateTime stopTime,
+      OffsetDateTime departureTime,
+      OffsetDateTime arrivalTime,
       WptSettings settings,
       String internalType,
       BigDecimal ele,
@@ -74,7 +74,7 @@ public class WptProperties extends PtProperties<WptSettings> {
       String osmCategory) {
 
     super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
-        markdownDescription, internalComments, links, startTime, stopTime, settings, internalType,
+        markdownDescription, internalComments, links, departureTime, arrivalTime, settings, internalType,
         ele, address, phoneNumbers, area, osmId, osmType, osmPlaceId, osmCategory);
   }
 

@@ -81,15 +81,9 @@ public abstract class FeatureProperties<S extends FeatureSettings> {
 
   private List<Link> links;
 
-  /**
-   * Start time of tracks or way points
-   */
-  private OffsetDateTime startTime;
+  private OffsetDateTime departureTime;
 
-  /**
-   * Stop time of tracks or way points
-   */
-  private OffsetDateTime stopTime;
+  private OffsetDateTime arrivalTime;
 
   @ApiModelProperty(
       value = "The private settings.",
@@ -115,8 +109,8 @@ public abstract class FeatureProperties<S extends FeatureSettings> {
       String markdownDescription,
       String internalComments,
       List<Link> links,
-      OffsetDateTime startTime,
-      OffsetDateTime stopTime,
+      OffsetDateTime departureTime,
+      OffsetDateTime arrivalTime,
       S settings) {
 
     setAcl(acl);
@@ -129,8 +123,8 @@ public abstract class FeatureProperties<S extends FeatureSettings> {
     setMarkdownDescription(markdownDescription);
     setInternalComments(internalComments);
     setLinks(links);
-    setStartTime(startTime);
-    setStopTime(stopTime);
+    setDepartureTime(departureTime);
+    setArrivalTime(arrivalTime);
     setSettings(settings);
   }
 

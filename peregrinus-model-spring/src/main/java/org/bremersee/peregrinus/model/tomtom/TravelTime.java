@@ -14,27 +14,45 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.model;
+package org.bremersee.peregrinus.model.tomtom;
 
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import org.bremersee.common.model.HttpLanguageTag;
-import org.bremersee.common.model.TwoLetterCountryCodes;
+import lombok.Getter;
 
 /**
  * @author Christian Bremer
  */
-@NoArgsConstructor
-public class GoogleGeocodeQueryRequest extends GeocodeQueryRequest {
+public enum TravelTime {
 
-  @Builder
-  @SuppressWarnings("unused")
-  public GoogleGeocodeQueryRequest(
-      HttpLanguageTag language,
-      double[] boundingBox,
-      TwoLetterCountryCodes countryCodes,
-      Integer limit,
-      String query) {
-    super(language, boundingBox, countryCodes, limit, query);
+  /**
+   * All travel time.
+   */
+  ALL("all"),
+
+  /**
+   * None travel time.
+   */
+  NONE("none");
+
+  @Getter
+  private String value;
+
+  TravelTime(String value) {
+    this.value = value;
+  }
+
+  /**
+   * From value travel time.
+   *
+   * @param value the value
+   * @return the travel time
+   */
+  public static TravelTime fromValue(String value) {
+    for (TravelTime travelTime : TravelTime
+        .values()) {
+      if (travelTime.getValue().equalsIgnoreCase(value)) {
+        return travelTime;
+      }
+    }
+    return null;
   }
 }

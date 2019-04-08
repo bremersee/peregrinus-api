@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.model;
+package org.bremersee.peregrinus.model.tomtom;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,6 +26,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.bremersee.common.model.HttpLanguageTag;
 import org.bremersee.common.model.TwoLetterCountryCodes;
+import org.bremersee.peregrinus.model.GeocodeQueryRequest;
 import org.locationtech.jts.geom.Point;
 
 /**

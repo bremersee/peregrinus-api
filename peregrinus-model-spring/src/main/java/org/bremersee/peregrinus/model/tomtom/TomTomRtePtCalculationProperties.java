@@ -14,33 +14,38 @@
  * limitations under the License.
  */
 
-package org.bremersee.peregrinus.model;
+package org.bremersee.peregrinus.model.tomtom;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.bremersee.common.model.ThreeLetterCountryCode;
+import org.bremersee.peregrinus.model.RtePtCalculationProperties;
+import org.locationtech.jts.geom.MultiPolygon;
 
 /**
  * @author Christian Bremer
  */
-@JsonTypeInfo(use = Id.NAME, property = "_type")
-@JsonSubTypes({
-    @Type(
-        value = GarminImportRteCalculationProperties.class,
-        name = "GarminImportRteCalculationProperties")
-})
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
-public abstract class RteCalculationProperties {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class TomTomRtePtCalculationProperties extends RtePtCalculationProperties {
 
-  public abstract String getProvider(); // TODO provider enum
+  private TravelMode travelMode;
 
-  public abstract boolean isCalculationSupported(); // TODO provider enum
+  private RouteType routeType;
+
+  private Windingness windingness;
+
+  private Hilliness hilliness;
+
+  private Avoid avoid;
+
+  private List<ThreeLetterCountryCode> avoidVignette;
+
+  private MultiPolygon avoidAreas;
+
 }

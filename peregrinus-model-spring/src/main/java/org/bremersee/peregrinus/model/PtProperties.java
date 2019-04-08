@@ -90,8 +90,8 @@ public class PtProperties<S extends PtSettings> extends FeatureProperties<S> {
       String markdownDescription,
       String internalComments,
       List<Link> links,
-      OffsetDateTime startTime,
-      OffsetDateTime stopTime,
+      OffsetDateTime departureTime,
+      OffsetDateTime arrivalTime,
       S settings,
       String internalType,
       BigDecimal ele,
@@ -104,7 +104,7 @@ public class PtProperties<S extends PtSettings> extends FeatureProperties<S> {
       String osmCategory) {
 
     super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
-        markdownDescription, internalComments, links, startTime, stopTime, settings);
+        markdownDescription, internalComments, links, departureTime, arrivalTime, settings);
     setInternalType(internalType);
     setEle(ele);
     setAddress(address);

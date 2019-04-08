@@ -64,14 +64,14 @@ public class TrkProperties extends FeatureProperties<TrkSettings> {
       String markdownDescription,
       String internalComments,
       List<Link> links,
-      OffsetDateTime startTime,
-      OffsetDateTime stopTime,
+      OffsetDateTime departureTime,
+      OffsetDateTime arrivalTime,
       TrkSettings settings,
       List<List<BigDecimal>> eleLines,
       List<List<OffsetDateTime>> timeLines) {
 
     super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
-        markdownDescription, internalComments, links, startTime, stopTime, settings);
+        markdownDescription, internalComments, links, departureTime, arrivalTime, settings);
     setEleLines(eleLines);
     setTimeLines(timeLines);
   }

@@ -44,7 +44,7 @@ import org.locationtech.jts.geom.Polygon;
 @EqualsAndHashCode(callSuper = true)
 public class RtePtProperties extends PtProperties<RtePtSettings> {
 
-  private RteCalculationProperties calculationProperties;
+  private RtePtCalculationProperties calculationProperties;
 
   private Integer lengthInMeters;
 
@@ -75,8 +75,8 @@ public class RtePtProperties extends PtProperties<RtePtSettings> {
       String markdownDescription,
       String internalComments,
       List<Link> links,
-      OffsetDateTime startTime,
-      OffsetDateTime stopTime,
+      OffsetDateTime departureTime,
+      OffsetDateTime arrivalTime,
       RtePtSettings settings,
       String internalType,
       BigDecimal ele,
@@ -87,7 +87,7 @@ public class RtePtProperties extends PtProperties<RtePtSettings> {
       String osmType,
       String osmPlaceId,
       String osmCategory,
-      RteCalculationProperties calculationProperties,
+      RtePtCalculationProperties calculationProperties,
       Integer lengthInMeters,
       Integer travelTimeInSeconds,
       Integer trafficDelayInSeconds,
@@ -96,7 +96,7 @@ public class RtePtProperties extends PtProperties<RtePtSettings> {
       Integer liveTrafficIncidentsTravelTimeInSeconds) {
 
     super(acl, created, createdBy, modified, modifiedBy, name, plainTextDescription,
-        markdownDescription, internalComments, links, startTime, stopTime, settings, internalType,
+        markdownDescription, internalComments, links, departureTime, arrivalTime, settings, internalType,
         ele, address, phoneNumbers, area, osmId, osmType, osmPlaceId, osmCategory);
     this.calculationProperties = calculationProperties;
     this.lengthInMeters = lengthInMeters;

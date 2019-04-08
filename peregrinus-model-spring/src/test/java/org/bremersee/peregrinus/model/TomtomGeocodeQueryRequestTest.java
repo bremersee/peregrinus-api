@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bremersee.common.model.HttpLanguageTag;
 import org.bremersee.common.model.TwoLetterCountryCode;
 import org.bremersee.common.model.TwoLetterCountryCodes;
+import org.bremersee.peregrinus.model.tomtom.TomTomGeocodeQueryRequest;
 import org.junit.Test;
 
 /**
