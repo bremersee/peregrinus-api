@@ -22,7 +22,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.bremersee.common.model.HttpLanguageTag;
 import org.bremersee.common.model.TwoLetterCountryCodes;
 
 /**
@@ -37,7 +36,7 @@ public abstract class GeocodeRequest {
   private static final int DEFAULT_LIMIT = 8;
 
   @Setter
-  private HttpLanguageTag language;
+  private String language;
 
   private double[] boundingBox;
 
@@ -46,7 +45,7 @@ public abstract class GeocodeRequest {
   private Integer limit = DEFAULT_LIMIT;
 
   public GeocodeRequest(
-      HttpLanguageTag language,
+      String language,
       double[] boundingBox,
       TwoLetterCountryCodes countryCodes,
       Integer limit) {

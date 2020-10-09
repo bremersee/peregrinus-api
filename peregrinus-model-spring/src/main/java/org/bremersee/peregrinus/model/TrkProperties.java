@@ -16,7 +16,6 @@
 
 package org.bremersee.peregrinus.model;
 
-import io.swagger.annotations.ApiModel;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -32,10 +31,10 @@ import org.bremersee.common.model.Link;
 /**
  * @author Christian Bremer
  */
-@ApiModel(
-    value = "TrkProperties",
-    description = "Properties of a track.",
-    parent = FeatureProperties.class)
+//@ApiModel(
+//    value = "TrkProperties",
+//    description = "Properties of a track.",
+//    parent = FeatureProperties.class)
 @Getter
 @Setter
 @ToString(callSuper = true)

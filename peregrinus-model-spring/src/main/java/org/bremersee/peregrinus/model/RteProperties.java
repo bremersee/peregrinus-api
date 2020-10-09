@@ -16,7 +16,6 @@
 
 package org.bremersee.peregrinus.model;
 
-import io.swagger.annotations.ApiModel;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +30,10 @@ import org.bremersee.common.model.Link;
 /**
  * @author Christian Bremer
  */
-@ApiModel(
-    value = "RteProperties",
-    description = "Properties of a route.",
-    parent = FeatureProperties.class)
+//@ApiModel(
+//    value = "RteProperties",
+//    description = "Properties of a route.",
+//    parent = FeatureProperties.class)
 @Getter
 @Setter
 @ToString(callSuper = true)

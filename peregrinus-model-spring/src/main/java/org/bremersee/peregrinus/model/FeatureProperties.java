@@ -21,8 +21,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -37,15 +35,16 @@ import org.bremersee.common.model.Link;
 /**
  * @author Christian Bremer
  */
-@ApiModel(
-    value = "FeatureProperties",
-    description = "Common properties of a GeoJSON feature.",
-    discriminator = "_type",
-    subTypes = {
-        PtProperties.class,
-        TrkProperties.class,
-        RteProperties.class
-    })
+// TODO
+//@ApiModel(
+//    value = "FeatureProperties",
+//    description = "Common properties of a GeoJSON feature.",
+//    discriminator = "_type",
+//    subTypes = {
+//        PtProperties.class,
+//        TrkProperties.class,
+//        RteProperties.class
+//    })
 @JsonTypeInfo(use = Id.NAME, property = "_type")
 @JsonSubTypes({
     @Type(value = WptProperties.class, name = Feature.WPT_TYPE),
@@ -69,7 +68,6 @@ public abstract class FeatureProperties<S extends FeatureSettings> {
 
   private String modifiedBy;
 
-  @ApiModelProperty(value = "The name of the feature.", required = true)
   @JsonProperty(value = "name", required = true)
   private String name;
 
@@ -85,9 +83,9 @@ public abstract class FeatureProperties<S extends FeatureSettings> {
 
   private OffsetDateTime arrivalTime;
 
-  @ApiModelProperty(
-      value = "The private settings.",
-      dataType = "org.bremersee.peregrinus.model.FeatureLeafSettings")
+//  @ApiModelProperty(
+//      value = "The private settings.",
+//      dataType = "org.bremersee.peregrinus.model.FeatureLeafSettings")
   private S settings;
 
   public FeatureProperties() {

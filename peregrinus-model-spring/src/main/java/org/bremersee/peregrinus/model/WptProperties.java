@@ -16,7 +16,6 @@
 
 package org.bremersee.peregrinus.model;
 
-import io.swagger.annotations.ApiModel;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -34,10 +33,10 @@ import org.locationtech.jts.geom.Polygon;
 /**
  * @author Christian Bremer
  */
-@ApiModel(
-    value = "WptProperties",
-    description = "Properties of a way point.",
-    parent = PtProperties.class)
+//@ApiModel(
+//    value = "WptProperties",
+//    description = "Properties of a way point.",
+//    parent = PtProperties.class)
 @Getter
 @Setter
 @ToString(callSuper = true)

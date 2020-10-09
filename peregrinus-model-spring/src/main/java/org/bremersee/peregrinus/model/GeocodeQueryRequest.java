@@ -26,7 +26,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.bremersee.common.model.HttpLanguageTag;
 import org.bremersee.common.model.TwoLetterCountryCodes;
 import org.bremersee.peregrinus.model.google.GoogleGeocodeQueryRequest;
 import org.bremersee.peregrinus.model.nominatim.NominatimGeocodeQueryRequest;
@@ -52,7 +51,7 @@ public abstract class GeocodeQueryRequest extends GeocodeRequest {
   private String query;
 
   public GeocodeQueryRequest(
-      HttpLanguageTag language,
+      String language,
       double[] boundingBox,
       TwoLetterCountryCodes countryCodes,
       Integer limit,

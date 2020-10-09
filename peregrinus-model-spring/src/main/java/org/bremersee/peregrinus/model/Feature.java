@@ -20,8 +20,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.NoArgsConstructor;
 import org.bremersee.geojson.AbstractGeoJsonFeature;
 import org.bremersee.geojson.GeometryDeserializer;
@@ -32,7 +30,6 @@ import org.locationtech.jts.geom.Geometry;
 /**
  * @author Christian Bremer
  */
-@ApiModel(value = "Feature", description = "A GeoJSON feature with well known properties.")
 @NoArgsConstructor
 @SuppressWarnings("WeakerAccess")
 public abstract class Feature
@@ -73,10 +70,11 @@ public abstract class Feature
     this.id = id;
   }
 
-  @ApiModelProperty(
-      value = "GeoJSON",
-      required = true,
-      dataType = "org.bremersee.geojson.model.Geometry")
+  //  @ApiModelProperty(
+//      value = "GeoJSON",
+//      required = true,
+//      dataType = "org.bremersee.geojson.model.Geometry")
+  // TODO
   @JsonProperty(value = "geometry", required = true)
   @JsonSerialize(using = GeometrySerializer.class)
   @Override
@@ -84,10 +82,11 @@ public abstract class Feature
     return geometry;
   }
 
-  @ApiModelProperty(
-      value = "GeoJSON",
-      required = true,
-      dataType = "org.bremersee.geojson.model.Geometry")
+  //  @ApiModelProperty(
+//      value = "GeoJSON",
+//      required = true,
+//      dataType = "org.bremersee.geojson.model.Geometry")
+  // TODO
   @JsonProperty(value = "geometry", required = true)
   @JsonDeserialize(using = GeometryDeserializer.class)
   @Override
@@ -95,14 +94,12 @@ public abstract class Feature
     this.geometry = geometry;
   }
 
-  @ApiModelProperty(value = "The feature properties.", required = true)
   @JsonProperty(value = "properties", required = true)
   @Override
   public FeatureProperties<? extends FeatureSettings> getProperties() {
     return super.getProperties();
   }
 
-  @ApiModelProperty(value = "The feature properties.", required = true)
   @JsonProperty(value = "properties", required = true)
   @Override
   public void setProperties(FeatureProperties<? extends FeatureSettings> properties) {

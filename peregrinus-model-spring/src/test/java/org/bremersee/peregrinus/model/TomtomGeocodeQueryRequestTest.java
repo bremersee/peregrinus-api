@@ -1,11 +1,10 @@
 package org.bremersee.peregrinus.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bremersee.common.model.HttpLanguageTag;
 import org.bremersee.common.model.TwoLetterCountryCode;
 import org.bremersee.common.model.TwoLetterCountryCodes;
 import org.bremersee.peregrinus.model.tomtom.TomTomGeocodeQueryRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Christian Bremer
@@ -20,7 +19,7 @@ public class TomtomGeocodeQueryRequestTest {
     TomTomGeocodeQueryRequest r = TomTomGeocodeQueryRequest.builder()
         .boundingBox(new double[] {1., 2., 4., 5.})
         .countryCodes(countryCodes)
-        .language(HttpLanguageTag.DE)
+        .language("de")
         .limit(3)
         .query("Hallo")
         .offset(3)

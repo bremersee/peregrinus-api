@@ -21,7 +21,6 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.bremersee.common.model.HttpLanguageTag;
 
 /**
  * @author Christian Bremer
@@ -32,7 +31,7 @@ public class RteCalculationRequest {
 
   private List<Pt> rtePts;
 
-  private HttpLanguageTag language; // TODO move to RteCalculationProperties after renaming in service
+  private String language; // TODO move to RteCalculationProperties after renaming in service
 
   private OffsetDateTime time = OffsetDateTime.now(Clock.systemUTC());
 

@@ -1,3 +1,3 @@
-# peregrinus-model-spring
+# Peregrinus API Model
 
 This library contains a generated Java model from Swagger definitions for the Spring framework.
